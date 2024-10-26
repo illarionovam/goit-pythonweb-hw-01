@@ -32,6 +32,42 @@ class Motorcycle(Vehicle):
         logging.info(f"{self.make} {self.model}: Мотор заведено")
 
 
+class USCar(Car):
+    def __init__(self, make: str, model: str):
+        super().__init__(make, model)
+        self.spec = "US"
+
+    def start_engine(self):
+        logging.info(f"{self.make} {self.model} ({self.spec} spec): Двигун запущено")
+
+
+class EUCar(Car):
+    def __init__(self, make: str, model: str):
+        super().__init__(make, model)
+        self.spec = "EU"
+
+    def start_engine(self):
+        logging.info(f"{self.make} {self.model} ({self.spec} spec): Двигун запущено")
+
+
+class USMotorcycle(Motorcycle):
+    def __init__(self, make: str, model: str):
+        super().__init__(make, model)
+        self.spec = "US"
+
+    def start_engine(self):
+        logging.info(f"{self.make} {self.model} ({self.spec} spec): Мотор заведено")
+
+
+class EUMotorcycle(Motorcycle):
+    def __init__(self, make: str, model: str):
+        super().__init__(make, model)
+        self.spec = "EU"
+
+    def start_engine(self):
+        logging.info(f"{self.make} {self.model} ({self.spec} spec): Мотор заведено")
+
+
 class VehicleFactory(ABC):
     @abstractmethod
     def create_car(self, make: str, model: str) -> Car:
@@ -43,25 +79,19 @@ class VehicleFactory(ABC):
 
 
 class USVehicleFactory(VehicleFactory):
-    def __init__(self):
-        self.spec = "(US Spec)"
+    def create_car(self, make: str, model: str) -> USCar:
+        return USCar(make, model)
 
-    def create_car(self, make: str, model: str) -> Car:
-        return Car(make, f"{model} {self.spec}")
-
-    def create_motorcycle(self, make: str, model: str) -> Motorcycle:
-        return Motorcycle(make, f"{model} {self.spec}")
+    def create_motorcycle(self, make: str, model: str) -> USMotorcycle:
+        return USMotorcycle(make, model)
 
 
 class EUVehicleFactory(VehicleFactory):
-    def __init__(self):
-        self.spec = "(EU Spec)"
+    def create_car(self, make: str, model: str) -> EUCar:
+        return EUCar(make, model)
 
-    def create_car(self, make: str, model: str) -> Car:
-        return Car(make, f"{model} {self.spec}")
-
-    def create_motorcycle(self, make: str, model: str) -> Motorcycle:
-        return Motorcycle(make, f"{model} {self.spec}")
+    def create_motorcycle(self, make: str, model: str) -> EUMotorcycle:
+        return EUMotorcycle(make, model)
 
 
 # Використання
